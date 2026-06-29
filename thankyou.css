@@ -1,0 +1,606 @@
+/* Premium CSS Design System - AmarVed Recovery Thank You Page */
+
+:root {
+  /* Colors */
+  --primary: #14B8A6;
+  /* Modern Teal */
+  --primary-hover: #0d9488;
+  /* Darker Teal */
+  --success: #10B981;
+  /* Accent Green */
+  --success-hover: #059669;
+  /* Darker Green */
+
+  --bg-main: #f8fafc;
+  /* Soft grey-blue background */
+  --bg-card: #ffffff;
+  /* Pure white cards */
+
+  --text-main: #0f172a;
+  /* Slate 900 for high contrast headers */
+  --text-muted: #475569;
+  /* Slate 600 for body text */
+  --text-light: #64748b;
+  /* Slate 500 for secondary text */
+
+  --notice-bg: #fffbeb;
+  /* Light amber background for warnings */
+  --notice-border: #f59e0b;
+  /* Amber 500 */
+  --notice-text: #b45309;
+  /* Amber 700 */
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 10px 25px -5px rgba(20, 184, 166, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.03);
+  --shadow-premium: 0 20px 40px -15px rgba(15, 23, 42, 0.06), 0 15px 25px -10px rgba(20, 184, 166, 0.04);
+  --shadow-btn: 0 10px 20px -5px rgba(16, 185, 129, 0.4);
+
+  /* Fonts */
+  --font-headings: 'Outfit', sans-serif;
+  --font-body: 'Inter', sans-serif;
+
+  /* Borders */
+  --radius-lg: 24px;
+  --radius-md: 16px;
+  --radius-sm: 12px;
+}
+
+/* Reset & Base */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-main);
+  color: var(--text-muted);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 20px;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Background Confetti Canvas */
+#confetti-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10;
+  pointer-events: none;
+}
+
+/* Main Container */
+.thank-you-container {
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 20;
+}
+
+/* Utilities */
+.text-center {
+  text-align: center;
+}
+
+/* Animation Base (Fade In) */
+.fade-in {
+  opacity: 0;
+  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Hero Section */
+.hero-section {
+  margin-bottom: 32px;
+}
+
+.hero-title {
+  font-family: var(--font-headings);
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-top: 16px;
+  margin-bottom: 8px;
+}
+
+.hero-subtitle {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: 8px;
+}
+
+.hero-tagline {
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+/* Animated Checkmark */
+.checkmark-wrapper {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.checkmark {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  display: block;
+  stroke-width: 3.5;
+  stroke: var(--success);
+  stroke-miterlimit: 10;
+  box-shadow: inset 0px 0px 0px var(--success);
+  animation: fillCheckmark .4s ease-in-out .4s forwards, checkmarkScale .3s ease-in-out .9s forwards;
+}
+
+.checkmark-circle {
+  stroke-dasharray: 166;
+  stroke-dashoffset: 166;
+  stroke-width: 3.5;
+  stroke-miterlimit: 10;
+  stroke: var(--success);
+  fill: none;
+  animation: drawCircle .6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+}
+
+.checkmark-check {
+  transform-origin: 50% 50%;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: drawCheck .3s cubic-bezier(0.65, 0, 0.45, 1) .6s forwards;
+}
+
+/* Cards System */
+.content-flow>*+* {
+  margin-top: 24px;
+}
+
+.card {
+  background-color: var(--bg-card);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  box-shadow: var(--shadow-premium);
+  border: 1px solid rgba(20, 184, 166, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.08), 0 15px 30px -10px rgba(20, 184, 166, 0.06);
+}
+
+.card-title {
+  font-family: var(--font-headings);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 20px;
+}
+
+/* Confirmation Card */
+.steps-list {
+  list-style: none;
+}
+
+.steps-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.steps-list li:last-child {
+  margin-bottom: 0;
+}
+
+.emoji-bullet {
+  font-size: 1.25rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.steps-list p {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+}
+
+.steps-list strong {
+  color: var(--text-main);
+}
+
+.card-footer-note {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid #f1f5f9;
+  font-size: 0.95rem;
+  color: var(--text-light);
+}
+
+/* Webinar Details Card */
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background-color: #f8fafc;
+  border-radius: var(--radius-md);
+  border: 1px solid #f1f5f9;
+  transition: background-color 0.2s ease;
+}
+
+.detail-item:hover {
+  background-color: #f1f5f9;
+}
+
+.detail-icon {
+  font-size: 1.75rem;
+  flex-shrink: 0;
+}
+
+.detail-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.detail-label {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-light);
+  font-weight: 600;
+}
+
+.detail-value {
+  font-family: var(--font-headings);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+/* CTA Card */
+.cta-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.highlight-border {
+  border: 2px solid var(--success);
+}
+
+.section-badge {
+  font-size: 1.1rem;
+  color: var(--text-main);
+  margin-bottom: 12px;
+}
+
+.cta-title {
+  font-family: var(--font-headings);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 16px;
+  line-height: 1.3;
+}
+
+.cta-desc {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  margin-bottom: 28px;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  padding: 18px 24px;
+  font-family: var(--font-headings);
+  font-size: 1.15rem;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: pointer;
+  border: none;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--success), #059669);
+  color: #ffffff;
+  box-shadow: var(--shadow-btn);
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 14px 28px -5px rgba(16, 185, 129, 0.5), 0 10px 10px -10px rgba(16, 185, 129, 0.3);
+}
+
+.btn-primary:active {
+  transform: translateY(-1px);
+}
+
+.btn-icon {
+  font-size: 1.3rem;
+  display: inline-block;
+  animation: rocketWiggle 2s ease-in-out infinite;
+}
+
+/* Important Notice Card */
+.notice-card {
+  background-color: var(--notice-bg);
+  border: 1px solid var(--notice-border);
+  padding: 24px;
+  border-radius: var(--radius-md);
+}
+
+.notice-card:hover {
+  box-shadow: 0 12px 20px -8px rgba(245, 158, 11, 0.15);
+}
+
+.notice-title {
+  font-family: var(--font-headings);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--notice-text);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.notice-text {
+  font-size: 0.98rem;
+  color: var(--notice-text);
+  line-height: 1.5;
+}
+
+/* Learning Section */
+.learning-list {
+  list-style: none;
+}
+
+.learning-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 12px 0;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.learning-list li:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.learning-list li:first-child {
+  padding-top: 0;
+}
+
+.learning-check {
+  font-size: 1.15rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.learning-list span:last-child {
+  font-size: 1.02rem;
+  color: var(--text-muted);
+}
+
+/* Commitment Card */
+.commitment-card {
+  border: 2px dashed rgba(20, 184, 166, 0.25);
+  background-color: rgba(20, 184, 166, 0.01);
+}
+
+.commitment-list {
+  list-style: none;
+}
+
+.commitment-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.commitment-list li:last-child {
+  margin-bottom: 0;
+}
+
+.bullet-dot {
+  color: var(--primary);
+  font-size: 1.5rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.commitment-list span {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+/* Bottom CTA Section */
+.bottom-cta-section {
+  padding: 32px 16px;
+}
+
+.bottom-cta-lead {
+  font-family: var(--font-headings);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 20px;
+}
+
+/* Footer */
+.footer {
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(20, 184, 166, 0.1);
+}
+
+.footer-brand {
+  font-family: var(--font-headings);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--primary);
+  letter-spacing: 0.05em;
+}
+
+.footer-thanks {
+  font-size: 0.95rem;
+  color: var(--text-light);
+  margin-top: 4px;
+}
+
+/* Animations Keyframes */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes drawCircle {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes drawCheck {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes fillCheckmark {
+  to {
+    box-shadow: inset 0px 0px 0px 50px rgba(16, 185, 129, 0.05);
+  }
+}
+
+@keyframes checkmarkScale {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.08);
+  }
+}
+
+@keyframes rocketWiggle {
+
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+
+  25% {
+    transform: rotate(-10deg) translateY(-2px);
+  }
+
+  75% {
+    transform: rotate(10deg) translateY(1px);
+  }
+}
+
+@keyframes pulseGlow {
+  0% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.5);
+  }
+
+  70% {
+    box-shadow: 0 0 0 12px rgba(16, 185, 129, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
+}
+
+/* Apply CTA Pulse when active/loaded */
+.hover-pulse {
+  animation: pulseGlow 2s infinite;
+}
+
+.hover-pulse:hover {
+  animation-play-state: paused;
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 600px) {
+  body {
+    padding: 24px 16px;
+  }
+
+  .hero-title {
+    font-size: 2.1rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.2rem;
+  }
+
+  .card {
+    padding: 24px 18px;
+  }
+
+  .details-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .cta-title {
+    font-size: 1.3rem;
+  }
+
+  .btn {
+    padding: 16px 20px;
+    font-size: 1.05rem;
+  }
+}
